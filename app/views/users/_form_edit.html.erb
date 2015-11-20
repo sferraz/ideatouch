@@ -1,0 +1,42 @@
+<fieldset class="scheduler-border">
+  <h1>Edit User</h1>
+  nome <br><br>
+  <% if  params[:id].eql? (current_user.id.to_s) %>
+    <%= f.text_field :nome, :id => 'field_name',class:"form-control", value:@user.nome  %>
+  <% else  %> 
+    <%= f.text_field :nome, :id => 'field_name',class:"form-control", value:@user.nome , readonly: true %>
+  <% end  %>
+  <br>email <br><br>
+  <% if  params[:id].eql? (current_user.id.to_s) %>
+    <%= f.text_field :email, :id => 'field_email',class:"form-control", value:@user.email   %> 
+  <% else  %> 
+    <%= f.text_field :email, :id => 'field_email',class:"form-control", value:@user.email , readonly: true  %> 
+  <% end  %> 
+  <br><br><br><br>
+  <% if params[:id].eql? (current_user.id.to_s) %>
+    <%= link_to "Alterar Password", "#" ,:id => 'link_password', 
+    :onclick => "document.getElementById('change_pass').style.display='';
+    document.getElementById('link_password').style.display='none';
+    " %>
+  <% end %>
+  <div id="change_pass" style="display: none">
+    <div class="form-group">
+      <%= f.label :password, "Password" %>
+      <%= f.text_field :password, :id => 'field_password',class:"form-control", type: "password"   %> 
+    </div>
+    <div class="form-group">
+      <%= f.label :pass, "Repete Password" %>
+      <%= f.text_field :pass, :id => 'field_password',class:"form-control", value:@user.password, type: "password"   %> 
+    </div>  
+  </div>
+  <br><br><br>
+  <div class="actions">
+    <%= button_to "Submit", dynamics_path, method: :submit,:type =>type="button",:class=>'btn btn-success' %> 
+  </div>
+  <br><br>
+  <div class= "hh3">
+    <%= link_to "/dynamics" , method: :get , :class => "hvr-icon-back" do %> 
+      Back to Dynamics
+    <% end %>
+  </div>
+<br><br>

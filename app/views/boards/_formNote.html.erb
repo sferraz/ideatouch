@@ -1,0 +1,45 @@
+<%= form_for(@note) do |f| %>
+  <% if @board.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@board.errors.count, "error") %> prohibited this board from being saved:</h2>
+
+      <ul>
+        <% @board.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <br>
+    <div class="input-letter"><%= f.text_area :text,:placeholder=>"Text",:style => 'text-align:center;background-image: url("");',:class=>'form-control'   %></div>
+  </div>
+  <br>
+  <div class="field">
+    <%= select(:note,:color, [
+      ['Turquoise', "notaAzul2 lifted"],
+      ['Orange', "notaLaranja2 lifted"],
+      ['Red', "notaRed2 lifted"],
+      ['Yellow', "notaAmarelo2 lifted"],
+      ['Blue', "notaAzulClaro3 lifted"],
+      ['Purple', "notaRoxo2 lifted"],
+      ['Brown', "notaCastanho2 lifted"],
+      ['Green', "notaVerde2 lifted"],
+    ])%>
+  </div>
+  <%= f.hidden_field :numerodanota, value: @dynamics.where(id:@board.dynamic_id).last.numerodenotas+1 %>
+  <%= f.hidden_field :board_id, value: @board.id %>
+  <%= f.hidden_field :dynamic_id, value: @board.dynamic_id %>
+  <br>
+  <div class="actions">
+    <%= button_to "Submit", dynamics_path, method: :submit,:type =>type="button",:class=>'btn btn-success' %> 
+  </div>
+  <br><br>
+  <div class= "hh3">
+    <%= link_to "/boards/#{@board.id}" , method: :get , :class => "hvr-icon-back" do %> 
+      Back to Board
+    <% end %>
+  </div>
+  <br><br>
+<% end %>

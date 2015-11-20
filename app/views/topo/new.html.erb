@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/login.css">
+    <style>.wow:first-child {visibility: hidden;}</style>
+    <title>IdeaTouch</title>
+  </head>
+
+  <body>
+    olaa
+    <div class="box-wall3">    
+      <div id="clearance" class="sign-in">
+        <br>
+        <h2><img src="/assets/img/160.png" alt="logotipo" ></h2>
+        <h2><%= t '.title' %></h2>
+        <%= form_for @user do |form| %>         
+          <div class="hh4"><%= render partial: '/users/form', object: form %></div>
+          <h2><small><%= button_to "Sign in", sign_in_path, method: :submit,:type =>type="button",:class=>'btn btn-success' %> </small></h2>
+          <div class="other-links">
+            <small><%= link_to t('.sign_in'), sign_in_path %></small>
+          </div>
+        <% end %>  
+      </div>
+    </div>
+  </body>
+</html>

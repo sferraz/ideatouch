@@ -1,0 +1,398 @@
+<html>
+  <head>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/animate.css">
+    <style>.wow:first-child {visibility: hidden;}</style>
+    <title>IdeaTouch</title>
+  </head>
+
+  <body>
+    <div class="preload"></div>
+    <div class="content">
+      <%= render './dynamics/formTopBarB' %>
+      <div id = "topo2">
+        <div class="caixa-icon wow fadeInLeft" data-wow-duration="0.4s" data-wow-delay="0.4s">
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true" ></span>
+        </div>
+
+        <%= link_to "/dynamics" , method: :get  do %>
+          <div class="wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.5s">
+            <div class="hvr-float">
+              <% if @board.dynamic.color=="dynamicCinza" %>
+                <div class="caixa-menu cinza lifted">
+              <% end %>
+              <% if @board.dynamic.color=="dynamicAzul" %>
+                <div class="caixa-menu azul lifted">
+              <% end %>
+              <% if @board.dynamic.color=="dynamicLaranja" %>
+                <div class="caixa-menu laranja lifted">
+              <% end %>
+              <% if @board.dynamic.color=="dynamicAmarelo" %>
+                <div class="caixa-menu amarelo lifted">
+              <% end %>
+              <% if @board.dynamic.color=="dynamicRed" %>
+                <div class="caixa-menu red lifted">
+              <% end %>
+              <% if @board.dynamic.color=="dynamicAzulClaro" %>
+                <div class="caixa-menu azulClaro lifted">
+              <% end %>
+              <% if @board.dynamic.color=="dynamicRoxo" %>
+                <div class="caixa-menu roxo lifted">
+              <% end %>
+              <% if @board.dynamic.color=="dynamicCastanho" %>
+                <div class="caixa-menu castanho lifted">
+              <% end %>
+              <% if @board.dynamic.color=="dynamicVerde" %>
+                <div class="caixa-menu verde lifted">
+              <% end %>
+
+              <div class="letraTitulo"> 
+                Dynamic 
+              </div>
+              <div class="letraSimbolo"> 
+                <% if current_user.id == @board.dynamic.user_id %>
+                  <span class="glyphicon glyphicon-king" aria-hidden="true" ></span>
+                <% end %>
+              </div>
+              <div class="letraNome"> 
+                <%= link_to "/dynamics" , method: :get , :class => "hvr-icon-back" do %> 
+                  <div class="serif"><%= @board.dynamic.name %> </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="caixa-icon wow fadeInLeft" data-wow-duration="0.6s" data-wow-delay="0.6s">
+        <span class="glyphicon glyphicon-menu-right" aria-hidden="true" ></span>
+      </div>
+      <%= link_to "/dynamics/#{@board.dynamic.id}", method: :get  do %>
+        <div class="wow fadeInLeft" data-wow-duration="0.6s" data-wow-delay="0.6s">
+          <div class="hvr-float">
+        <% if @board.color=="boardCinza" %>
+          <div class="caixa-menuB cinza lifted">
+        <% end %> 
+        <% if @board.color=="boardAzul" %>
+          <div class="caixa-menuB azul lifted">
+        <% end %>
+        <% if @board.color=="boardLaranja" %>
+          <div class="caixa-menuB laranja lifted">
+        <% end %>   
+        <% if @board.color=="boardAmarelo" %>
+          <div class="caixa-menuB amarelo lifted">
+        <% end %>
+        <% if @board.color=="boardRed" %>
+          <div class="caixa-menuB red lifted">
+        <% end %>
+        <% if @board.color=="boardAzulClaro" %>
+          <div class="caixa-menuB azulClaro lifted">
+        <% end %>
+        <% if @board.color=="boardRoxo" %>
+          <div class="caixa-menuB roxo lifted">
+        <% end %>
+        <% if @board.color=="boardCastanho" %>
+          <div class="caixa-menuB castanho lifted">
+        <% end %>
+        <% if @board.color=="boardVerde" %>
+          <div class="caixa-menuB verde lifted">
+        <% end %>
+
+        <div class="letraTitulo"> Board </div>
+          <div class="letraNome"> 
+            <%= link_to "/dynamics/#{@board.dynamic.id}" , method: :get , :class => "hvr-icon-back" do %> 
+              <div class="serif"><%=  @board.name %> </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="wow fadeInRight" data-wow-duration="0.7s" data-wow-delay="0.7s">
+    <div class="caixa-relogio lifted" >
+      <div class="letraRelogio ">
+        <div class="serif">
+          <% if  (@board.dynamic.final.to_time - 1.hours) > Time.now %>
+            <%= distance_of_time_in_words(Time.now, (@board.dynamic.final.to_time - 1.hours) , include_seconds: true) %> to the end</div>
+            <span class="glyphicon glyphicon-time" aria-hidden="true"></spam>
+          <% else %> 
+            <div class="serif">finished</div>
+            <span class="glyphicon glyphicon-record" aria-hidden="true"></spam>
+          <% end %> 
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br><br>
+  <div id="box-2">
+    <br><br>
+    <% if  (@board.dynamic.final.to_time - 1.hours) < Time.now  and @board.dynamic.votation==true %>
+      <% if @participants.where(email:current_user.email, dynamic_id:@board.dynamic.id).last.avatar_file_name!= nil and @participants.where(email:current_user.email, dynamic_id:@board.dynamic.id).last.name %>
+        <% if Participant.where(email:current_user.email,dynamic_id:@board.dynamic_id).last.vote==false %>
+        <%= link_to "/boards/#{@board.id}/votation", method: :get do %>
+          <div class="fora">
+            <div class="hvr-bob">
+              <div class="lateral-perfil2 wow fadeInUp" data-wow-duration="0.6s" data-wow-delay="0.6s">
+                <i class="fa fa-archive"></i>
+              </div>
+            </div>
+            <div id="hover-content">
+              <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+                <div class="lateral2-perfil lifted">Vote</div>
+              </div>
+            </div>
+          </div>
+          <br><br><br>
+        <% end %> 
+        <% else %>
+          <%= link_to "/boards/#{@board.id}/votation", method: :get do %>
+            <div class="fora">
+              <div class="hvr-bob">
+                <div class="lateral-perfil wow fadeInUp" data-wow-duration="0.6s" data-wow-delay="0.6s">
+                  <i class="fa fa-archive"></i>
+                </div>
+              </div>
+              <div id="hover-content">
+                <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+                  <div class="lateral2-perfil lifted">Your votes</div>
+                </div>
+              </div>
+            </div>
+            <br><br><br>
+          <% end %> 
+        <% end %> 
+      <% end %>
+    <% end %> 
+
+    <!--Move to Board-->
+    <% if current_user.id == @board.dynamic.user_id and @board.name != "all notes" %>
+      <%= link_to "/boards/#{@board.id}/moveNotes", method: :get do %>
+        <div class="fora">
+          <div class="hvr-bob">
+            <div class="lateral-perfil wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.8s">
+              <i class="fa fa-level-up"></i>
+            </div>
+          </div>
+          <div id="hover-content">
+            <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+              <div class="lateral2-perfil lifted">Move Note</div>
+            </div>
+          </div>
+        </div>
+        <br><br><br>  
+      <% end %>
+    <% end %>
+
+    <!--Delete Note-->
+    <%= form_tag destroy_multiple_notes_path, method: :delete do %>
+      <%= link_to '/boards/@board.id', :class => 'submit_me' do %>
+        <% if current_user.id == @board.dynamic.user_id %>
+          <div class="fora">
+            <div class="hvr-bob">
+              <div class="lateral-perfil wow fadeInUp" data-wow-duration="0.9s" data-wow-delay="0.9s">
+                <i class="fa fa-eraser"></i>
+              </div>
+            </div>
+            <div id="hover-content">
+              <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+                <div class="lateral2-perfil lifted">Delete Notes</div>
+              </div>
+            </div>
+          </div>
+          <br><br><br>  
+      <% end %>
+    <% end %>
+
+    <!--Edit-->
+    <% if current_user.id == @board.dynamic.user_id and @board.name != "all notes" and @board.name != "without board"%>
+      <%= link_to "/boards/#{@board.id}/edit", method: :get do %>
+        <div class="fora">
+          <div class="hvr-bob">
+            <div class="lateral-perfil wow fadeInUp" data-wow-duration="1.0s" data-wow-delay="1.0s">
+              <i class="fa fa-pencil-square-o"></i>
+            </div>
+          </div>
+          <div id="hover-content">
+            <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+              <div class="lateral2-perfil lifted">Edit Board</div>
+            </div>
+          </div>
+        </div>
+        <br><br><br>
+      <% end %>
+    <% end %>
+
+    <!--delete-->
+    <% if current_user.id == @board.dynamic.user_id %>
+      <% if @board.name!="all notes" and @board.name!="without board"%>  
+        <%= link_to  @board, method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <br><br><br>
+          <div class="fora">
+            <div class="hvr-bob">
+              <div class="lateral-perfil3 wow fadeInUp" data-wow-duration="1.1s" data-wow-delay="1.1s">
+                <i class="fa fa-trash-o"></i>
+              </div>
+            </div>
+            <div id="hover-content">
+              <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+                <div class="lateral2-perfil lifted">Delete Board</div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <br><br><br>       
+      <% end %>
+    <% end %>  
+  </div>
+  <div id="box-3">
+    <% if @board.name == "all notes" %>
+      <% for note in Note.where(dynamic_id:@board.dynamic) %>
+        <div class="hvr-float">
+          <div class = "hvr-curl-top-left wow bounceIn" data-wow-duration="0.5s" data-wow-delay="0.5s" >
+            <div class="<%= note.color %>">
+              <div class="textoo">
+                <% if current_user.id == @board.dynamic.user_id %>
+                  <%= check_box_tag "notes[]", note.id %>
+                  <%= link_to "/notes/#{note.id}/edit", method: :get do %>
+                    <div class="editt">
+                      <i class="fa fa-pencil"></i>
+                    </div>
+                  <% end %>
+                <% end %>
+                <div class="hhp"><%= note.numerodanota%></div>
+                <hh4><%= note.text %></hh4>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <% if @board.name == "without board" %>
+      <% for note in Note.where(board_id:(Board.where(dynamic_id: @board.dynamic,name:'all notes').last.id))%>
+        <div class="hvr-float">
+          <div class = "hvr-curl-top-left wow bounceIn" data-wow-duration="0.5s" data-wow-delay="0.5s" >
+            <div class="<%= note.color %>">
+              <div class="textoo">
+                <% if current_user.id == @board.dynamic.user_id %>
+                  <%= check_box_tag "notes[]", note.id %>
+                  <%= link_to "/notes/#{note.id}/edit", method: :get do %>
+                    <div class="editt">
+                      <i class="fa fa-pencil"></i>
+                    </div>
+                  <% end %>
+                <% end %>
+                <div class="hhp"><%= note.numerodanota%></div>
+                <hh4><%= note.text %></hh4> 
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <% if @board.name != "without board" and @board.name != "all notes"%>
+      <% for note in @board.notes %>
+        <div class="hvr-float">
+          <div class = "hvr-curl-top-left wow bounceIn" data-wow-duration="0.5s" data-wow-delay="0.5s" >
+            <div class="<%= note.color %>">
+              <div class="textoo">
+                <% if current_user.id == @board.dynamic.user_id %>
+                  <%= check_box_tag "notes[]", note.id %>
+                  <%= link_to "/notes/#{note.id}/edit", method: :get do %>
+                    <div class="editt">
+                      <i class="fa fa-pencil"></i>
+                    </div>
+                  <% end %>
+                <% end %>
+                <div class="hhp"><%= note.numerodanota%></div>
+                <hh4><%= note.text %></hh4> 
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <%end%>
+  <% if @board.name=="all notes" and (@board.dynamic.final.to_time - 1.hours) > Time.now%>  
+    <% if @participants.where(email:current_user.email, dynamic_id:@board.dynamic.id).last.avatar_file_name!= nil and @participants.where(email:current_user.email, dynamic_id:@board.dynamic.id).last.name %>
+      <%= link_to addNote_path(@board) , method: :get  do %>
+        <div class="hvr-float">
+          <div class="notaMenu wow fadeInUp" data-wow-duration="0.6s" data-wow-delay="0.6s">
+            <div class="hh1">
+              <i class="fa fa-paper-plane"></i>
+            </div>
+            <div class="hh2"> New Note</div> 
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <%= link_to  edit_participant_path(@participants.where(email:current_user.email, dynamic_id:@board.dynamic.id).last.id) , method: :get  do %>
+        <div class="hvr-float">
+          <div class="notaMenuA wow fadeInUp" data-wow-duration="0.6s" data-wow-delay="0.6s">
+            <div class="hh1">
+              <i class="fa fa-user-secret"></i>
+            </div>
+            <div class="hh2"> Define Avatar<br> to start</div> 
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+  </div>
+
+  <script>wow = new WOW({animateClass:'animated',offset:100,
+    callback:function(box){console.log("WOW: animating <" + box.tagName.toLowerCase() + ">")}});
+    wow.init();
+    document.getElementById('moar').onclick = function() {
+      var section = document.createElement('section');
+      section.className = 'section--purple wow fadeInDown';
+      this.parentNode.insertBefore(section, this);};
+  </script>
+  <script>
+    $(function() {
+      $(".preload").fadeOut(10, function() {
+        $(".content").fadeIn(10);        
+      });
+    });
+  </script>
+  <script>
+    $(window).resize(setDivVisibility);
+    function setDivVisibility(){
+      if (($(window).width()) < '700'){  
+        $('#topo2').css('height','100px');  
+      } else {  
+        $('#topo2').css('height','50px');  
+      } 
+    }
+  </script>
+  <script>
+    $(window).load(setDivVisibility);
+    function setDivVisibility(){
+      if (($(window).width()) < '700'){  
+        $('#topo2').css('height','100px');  
+      } else {  
+        $('#topo2').css('height','50px');  
+      } 
+    }
+  </script>
+  <script>
+    $('.submit_me').click(function() {
+      $('form').submit();
+      return false;
+    });
+  </script>
+  <script>
+    $('.submit_me2').click(function() {
+      $('form').submit();
+      return false;
+    });
+  </script>
+  <script>
+    $(".lateral-perfil").mouseover(function() {
+      $('#box-2').css('width','185px');  
+    }).mouseout(function() {
+      $('#box-2').css('width','62px');  
+    });
+  </script>
+  </body>
+</html>

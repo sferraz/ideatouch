@@ -1,0 +1,44 @@
+<%= form_for(@board) do |f| %>
+  <% if @board.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@board.errors.count, "error") %> prohibited this board from being saved:</h2>
+
+      <ul>
+        <% @board.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <br><br>
+    <div class="input-letter"><%= f.text_field :name ,:placeholder=>"Name",:style => 'text-align:center;background-image: url("");',:class=>'form-control'  %></div>
+  </div>
+  <br>
+  <div class="letrasInfo2">color: </div>
+  <div class="field">
+    <%= select(:board,:color, [
+      ['Red', "boardRed"],
+      ['Turquoise', "boardAzul"],
+      ['Orange', "boardLaranja"],
+      ['Yellow', "boardAmarelo"],
+      ['Blue', "boardAzulClaro"],
+      ['Purple', "boardRoxo"],
+      ['Brown', "boardCastanho"],
+      ['Green', "boardVerde"],
+    ])%>
+  </div>
+  <%= f.hidden_field :dynamic_id, value: @dynamic.id %>
+  <br>
+  <div class="actions">
+    <%= button_to "Submit", dynamics_path, method: :submit,:type =>type="button",:class=>'btn btn-success' %> 
+  </div>
+  <br><br>
+  <div class= "hh3">
+    <%= link_to "/dynamics/#{@dynamic.id}" , method: :get , :class => "hvr-icon-back" do %> 
+      Back to Dynamic
+    <% end %>
+  </div>
+  <br><br>
+<% end %>

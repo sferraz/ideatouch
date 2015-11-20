@@ -1,0 +1,47 @@
+<% if  Participant.where(email:current_user.email,dynamic_id:@board.dynamic_id).last.vote==false%>
+  <h1>Voting</h1>
+  <br>
+  Vote at most in <%= Dynamic.where(@board.dynamic_id).last.votationnumber %> notes
+  <div class="linha"></div>
+  <%= form_tag vote_multiple_notes_path, method: :put do %>
+  <% for note in Note.where(dynamic_id:@board.dynamic_id) %>
+    <div class="hvr-float">
+    <div class = "hvr-curl-top-left wow bounceIn" data-wow-duration="0.5s" data-wow-delay="0.5s" >
+    <div class="<%= note.color %>">
+    <div class="textoo">
+    <%= check_box_tag "notes[]", note.id %>
+    <div class="hhp"><%= note.numerodanota%></div>
+    <hh4><%= note.text %></hh4> 
+    </div></div> 
+    </div></div>
+  <% end %>
+  <div class="linha"></div>
+  <%= fields_for :note do |f| %>
+  <% end %>
+  <br><br>
+  <div class="actions">
+    <%= button_to "Submit", dynamics_path, method: :submit,:type =>type="button",:class=>'btn btn-success' %> 
+  </div>
+<% end %>
+<% else %>
+  <h1>Your votes</h1>
+  <div class="linha"></div>          
+  <% for note in Note.where(id:Vote.select(:note_id).where(dynamic_id:@board.dynamic_id, participant_id: Participant.where(email:current_user.email,dynamic_id:@board.dynamic_id).last.id       )) %>
+    <div class="hvr-float">
+    <div class = "hvr-curl-top-left wow bounceIn" data-wow-duration="0.5s" data-wow-delay="0.5s" >
+    <div class="<%= note.color %>">
+    <div class="textoo">
+    <div class="hhp"><%= note.numerodanota%></div>
+    <hh4><%= note.text %></hh4> 
+    </div></div> 
+    </div></div>
+  <% end %>
+  <div class="linha"></div>
+<% end %>
+<br><br>
+<div class= "hh3">
+  <%= link_to "/boards/#{@board.id}" , method: :get , :class => "hvr-icon-back" do %> 
+    Back to Board
+  <% end %>
+</div>
+<br>

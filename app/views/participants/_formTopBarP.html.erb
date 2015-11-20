@@ -1,0 +1,58 @@
+<div id="topo">
+  <%= link_to dynamics_path , method: :get  do %>
+    <div class="topo-Logo wow fadeIn" data-wow-duration="0.5s" data-wow-delay="0.5s">
+      IDeaTouch
+    </div>
+  <% end %> 
+  <%= link_to sign_out_path, method: :delete  do %>
+    <div class="topo-perfil wow fadeInRight" data-wow-duration="0.6s" data-wow-delay="0.6s">
+      <i class="fa fa-power-off"></i>
+    </div>
+  <% end %>
+
+  <!-- sino notificaçoes -->
+  <% if @notificationss!=0 %>
+    <%= link_to notifications_path , method: :get  do %>
+      <div class="hvr-buzz-out">
+        <div class="topo-perfil2 wow fadeInRight" data-wow-duration="0.7s" data-wow-delay="0.7s">
+          <i class="fa fa-bell"></i>
+        </div>  
+      </div>
+    <% end %>
+  <% else %>
+    <%= link_to notifications_path , method: :get  do %>
+      <div class="topo-perfil wow fadeInRight" data-wow-duration="0.7s" data-wow-delay="0.7s">
+        <i class="fa fa-bell-o"></i>
+      </div>
+    <% end %>
+    <!-- -->
+  <% end %>
+  <div class="topo-perfil wow fadeInRight" data-wow-duration="0.8s" data-wow-delay="0.8s">
+    <i class="fa fa-user"></i>
+  </div>
+  <%if @participant.dynamic ==1%>
+    ola
+  <%end %>
+  <div class="topo-perfilF wow fadeInUp" data-wow-duration="1.0s" data-wow-delay="1.0s">
+    <% if @participants.where(email:current_user.email, dynamic_id:@participant.dynamic.id).last.avatar_file_name!= nil %>
+      <%= link_to  edit_participant_path(@participants.where(email:current_user.email, dynamic_id:@participant.dynamic.id).last.id) , method: :get  do %>
+        <%= image_tag @participants.where(email:current_user.email, dynamic_id:@participant.dynamic.id).last.avatar.url(:medium) , size: "60x70" %>
+      <% end %>
+    <% else %>
+      <div class= "avatar">
+        <h2><i class="fa fa-user-secret"></i></h2>
+      </div>
+    <% end %>
+  </div>
+  <div class="topo-nome wow fadeInRight" data-wow-duration="1.5s" data-wow-delay="1.5s">
+    <%if @participants.where(email:current_user.email, dynamic_id:@participant.dynamic.id).last.name != nil %>
+      <div class="serif">
+        <%=@participants.where(email:current_user.email, dynamic_id:@participant.dynamic.id).last.name%>
+      </div>
+    <% else %>
+      <div class="serif">
+        Edit your Avatar
+      </div>
+    <% end %>   
+  </div>
+</div>

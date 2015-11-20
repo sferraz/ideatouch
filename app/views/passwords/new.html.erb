@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="login.css">
+    <style>.wow:first-child {visibility: hidden;}</style>
+    <title>IdeaTouch</title>
+  </head>
+
+  <body>
+    <div id="lbg" class="wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.5s" >
+      <div id="lsearch-container">
+        <div id="lsearch-bg" class="wow fadeIn" data-wow-duration="1.5s" data-wow-delay="1.5s" >
+        </div>
+        <div id="lsearch">
+          <div id="clearance" class="sign-in">
+            oula
+            <h2><img src="/assets/img/160.png" alt="logotipo" ></h2>
+            <h2><%= t '.title' %></h2>
+            <h2> <small><%= t '.description' %></small></h2>
+            <%= form_for :password, url: passwords_path do |form| %>
+              <div class="text-field">
+                <h2><small><%= form.text_field :email, type: 'email' ,:placeholder=>"Email"%></small></h2>
+              </div>
+              <div class="submit-field">
+                <h2><small><%= form.submit %></small></h2>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div></div>
+
+    <script src="js/wow.js"></script>
+    <script>wow = new WOW({animateClass:'animated',offset:100,
+      callback:function(box){console.log("WOW: animating <" + box.tagName.toLowerCase() + ">")}});
+      wow.init();
+      document.getElementById('moar').onclick = function() {
+        var section = document.createElement('section');
+        section.className = 'section--purple wow fadeInDown';
+        this.parentNode.insertBefore(section, this);};
+    </script>
+  </body>
+</html>

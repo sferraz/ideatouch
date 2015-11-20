@@ -1,0 +1,34 @@
+<div class ="qwe">
+
+<p id="notice"><%= notice %></p>
+
+<h1>Dynamic: <%=@dynamic.id%></h1>
+<p>
+  <strong>Name:</strong>
+  <%= @dynamic.name %>
+</p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @dynamic.descricao %>
+</p>
+
+<p>
+  <strong>Dinamizador:</strong>
+  <%= @dynamic.user.email %>
+</p>
+
+Boards da Dinamica:
+<% for board in @dynamic.boards %>
+	<li><%= link_to board.name, board %>
+	&nbsp &nbsp &nbsp
+	<%= link_to 'Destroy', board, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+<% end %>
+
+<br><br>
+<%= link_to 'Add Board', addBoard_path(@dynamic) %> |
+<%= link_to 'Edit', edit_dynamic_path(@dynamic) %> |
+<%= link_to 'Back', dynamics_path %>
+
+
+</div>

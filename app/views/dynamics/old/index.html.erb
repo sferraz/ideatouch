@@ -1,0 +1,39 @@
+<div class ="qwe">
+
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Dynamics</h1>
+
+<table style="width:100%">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Descricao</th>
+      <th>Dinamizador</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dynamics.each do |dynamic| %>
+      <tr>
+        <td><%= dynamic.name %></td>
+        <td><%= dynamic.descricao %></td>
+        <td><%= dynamic.user.email %></td>
+
+        <td><%= link_to 'Show', dynamic %></td>
+        <td><%= link_to 'Edit', edit_dynamic_path(dynamic) %></td>
+        <td><%= link_to 'Destroy', dynamic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
+<br>
+
+<%= link_to 'New Dynamic', new_dynamic_path %>
+
+<div>

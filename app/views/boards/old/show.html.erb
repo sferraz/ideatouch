@@ -1,0 +1,30 @@
+
+<div class ="qwe">
+
+<p id="notice"><%= notice %></p>
+<h1>Board: <%=@board.id%></h1>
+
+<p>
+  <strong>Name:</strong>
+  <%= @board.name %>
+</p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @board.descricao %>
+</p>
+
+<p>
+  <strong>Dynamic:</strong>
+  <%= @board.dynamic.name %>
+</p>
+
+Notas da Dinamica:
+<% for note in @board.notes %>
+	<li><%=  note.text %></li>
+<% end %>
+
+<%= link_to 'Add Note', addNote_path(@board) %> |
+<%= link_to 'Edit', edit_board_path(@board) %> |
+<%= link_to 'Back', boards_path %>
+</div>

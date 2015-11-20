@@ -1,0 +1,290 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="css/animate.css">
+    <style>.wow:first-child {visibility: hidden;}</style>
+    <title>IdeaTouch</title>
+  </head>
+
+  <body>
+    <div class="preload"></div>
+    <div class="content">
+      <%= render 'formTopBarD' %>
+      <div id = "topo2">
+        <div class="caixa-icon wow fadeInLeft" data-wow-duration="0.4s" data-wow-delay="0.4s">
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true" ></span>
+        </div>
+        <%= link_to "/dynamics" , method: :get  do %>
+        <div class="wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.5s">
+          <div class="hvr-float">
+            <% if @dynamic.color=="dynamicCinza" %>
+              <div class="caixa-menu cinza lifted">
+            <% end %>
+            <% if @dynamic.color=="dynamicAzul" %>
+              <div class="caixa-menu azul lifted">
+            <% end %>
+            <% if @dynamic.color=="dynamicLaranja" %>
+              <div class="caixa-menu laranja lifted">
+            <% end %>
+            <% if @dynamic.color=="dynamicAmarelo" %>
+              <div class="caixa-menu amarelo lifted">
+            <% end %>
+            <% if @dynamic.color=="dynamicRed" %>
+              <div class="caixa-menu red lifted">
+            <% end %>
+            <% if @dynamic.color=="dynamicAzulClaro" %>
+              <div class="caixa-menu azulClaro lifted">
+            <% end %>
+            <% if @dynamic.color=="dynamicRoxo" %>
+              <div class="caixa-menu roxo lifted">
+            <% end %>
+            <% if @dynamic.color=="dynamicCastanho" %>
+              <div class="caixa-menu castanho lifted">
+            <% end %>
+            <% if @dynamic.color=="dynamicVerde" %>
+              <div class="caixa-menu verde lifted">
+            <% end %>
+            <div class="letraTitulo"> 
+              Dynamic 
+            </div>
+            <div class="letraSimbolo"> 
+              <% if current_user.id == @dynamic.user_id %>
+                <span class="glyphicon glyphicon-king" aria-hidden="true" ></span>
+              <% end %>
+            </div>
+            <div class="letraNome"> 
+              <%= link_to "/dynamics" , method: :get , :class => "hvr-icon-back" do %> 
+                <div class="serif"><%= @dynamic.name %></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="wow fadeInRight" data-wow-duration="0.7s" data-wow-delay="0.7s">
+      <div class="caixa-relogio lifted" >
+        <div class="letraRelogio ">
+          <% if  (@dynamic.final.to_time - 1.hours) > Time.now %>
+            <div class="serif"><%= distance_of_time_in_words(Time.now, (@dynamic.final.to_time - 1.hours) , include_seconds: true) %> to the end</div>
+            <span class="glyphicon glyphicon-time" aria-hidden="true"></spam>
+          <% else %> 
+          <div class="serif">finished</div>
+          <span class="glyphicon glyphicon-record" aria-hidden="true"></spam>
+        <% end %>
+        </div>
+        </div>
+      </div>
+    </div>
+    <br><br><br>
+    <div id="box-2">
+      <br><br>
+      <%= link_to info_path , method: :get  do %>
+        <div class="fora">
+          <div class="hvr-bob">
+            <div class="lateral-perfil wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.3s">
+              <i class="fa fa-info"></i>
+            </div>
+          </div>
+          <div id="hover-content">
+            <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+              <div class="lateral2-perfil lifted">Dynamic Info</div></div>
+          </div>
+        </div>
+      <%end %>
+      <br><br><br>
+      <% if current_user.id != @dynamic.user_id %>
+        <%= link_to leave_path , method: :get  do %>
+          <br><br><br>
+          <div class="fora">
+            <div class="hvr-bob">
+              <div class="lateral-perfil3 wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.3s">
+                <i class="fa fa-reply"></i>
+              </div>
+            </div>
+            <div id="hover-content">
+              <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+              <div class="lateral3-perfil lifted">Leave Dynamic</div></div>
+            </div>
+          </div>
+        <%end %>
+        <br><br><br>
+      <% end %>
+
+      <!--- Restriçoes de funcionalidades -->
+      <% if current_user.id == @dynamic.user_id %>
+        <%= link_to statistics_path(@dynamic.id) , method: :get  do %>
+        <div class="fora">
+          <div class="hvr-bob">
+            <div class="lateral-perfil wow fadeInUp" data-wow-duration="0.4s" data-wow-delay="0.4s">
+              <i class="fa fa-pie-chart"></i>
+            </div>
+          </div>
+          <div id="hover-content">
+            <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+               <div class="lateral2-perfil lifted">Statistics</div></div>
+          </div>
+        </div>
+      <%end%>
+      <br><br><br>
+      <% if  (@dynamic.final.to_time - 1.hours) < Time.now and @dynamic.votation==false %>
+        <%= link_to activateVotation_path , method: :get  do %>
+        <div class="fora">
+          <div class="hvr-bob">
+            <div class="lateral-perfil2 wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.5s">
+              <i class="fa fa-archive"></i>
+            </div>
+          </div>
+          <div id="hover-content">
+            <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+               <div class="lateral2-perfil lifted">Activate voting</div></div>
+          </div>
+        </div>
+        <br><br><br>
+      <% end %>
+    <% end%>
+    <% if  (@dynamic.final.to_time - 1.hours) < Time.now and @dynamic.votation==true %>
+      <%= link_to votingResults_path(@dynamic.id) , method: :get  do %>
+        <div class="fora">
+          <div class="hvr-bob">
+            <div class="lateral-perfil wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.5s">
+              <i class="fa fa-archive"></i>
+            </div>
+          </div>
+          <div id="hover-content">
+            <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+              <div class="lateral2-perfil lifted">Voting Results</div></div>
+          </div>
+        </div>
+        <br><br><br>
+      <% end %>
+    <% end %>
+    <% if (@dynamic.final.to_time - 1.hours) > Time.now %> 
+      <%= link_to addParticipant_path , method: :get  do %>
+        <div class="fora">
+          <div class="hvr-bob">
+            <div class="lateral-perfil wow fadeInUp" data-wow-duration="0.6s" data-wow-delay="0.6s">
+              <i class="fa fa-user-plus"></i>
+            </div>
+          </div>
+          <div id="hover-content">
+            <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+               <div class="lateral2-perfil lifted">Invite people</div></div>
+          </div>
+        </div>
+      <% end %>
+      <br><br><br>
+    <% end %>
+    <%= link_to edit_dynamic_path , method: :get  do %>
+      <div class="fora">
+        <div class="hvr-bob">
+          <div class="lateral-perfil wow fadeInUp" data-wow-duration="0.7s" data-wow-delay="0.7s">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></spam>
+          </div>
+        </div>
+        <div id="hover-content">
+          <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+            <div class="lateral2-perfil lifted">Edit Dynamic</div></div>
+        </div>
+      </div>
+      <br><br><br>
+    <% end %>        
+    <%= link_to @dynamic, method: :delete, data: { confirm: 'Are you sure?' } do %>
+      <br><br><br>
+      <div class="fora">
+        <div class="hvr-bob">
+          <div class="lateral-perfil3 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.8s">
+            <i class="fa fa-trash-o"></i>
+          </div>
+        </div>
+        <div id="hover-content">
+          <div class="wow fadeInLeft" data-wow-duration="0.2s" data-wow-delay="0.2s">
+            <div class="lateral3-perfil lifted">Delete Dynamic</div>
+          </div>
+        </div>
+      </div>
+    <% end %><% end %>
+    </div>
+    <div id="box-3" class="box">
+      <% for board in @dynamic.boards %>
+        <% if board.name=="without board" and current_user.id == @dynamic.user_id %>
+          <div class="hvr-float">
+            <div class = "hvr-curl-top-left2 wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.5s" >
+            	<%= link_to board , method: :get  do %>
+             	  <div class=<%= board.color%>> 
+                  <h2>Board</h2> 
+                  <div class="serif"><%= board.name %></div>
+              	</div>
+              <% end %>
+            </div>
+          </div>
+          <% elsif board.name!="without board"%>
+            <div class="hvr-float">
+              <div class = "hvr-curl-top-left2 wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.5s" >
+                <%= link_to board , method: :get  do %>
+                  <div class=<%= board.color%>> 
+                    <h2>Board</h2> 
+                    <div class="serif"><%= board.name %></div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        <% if current_user.id == @dynamic.user_id %>
+          <%= link_to "/dynamics/#{@dynamic.id}/addBoard" , method: :get  do %>
+            <div class="hvr-float">
+              <div class="boardMenu wow fadeInUp" data-wow-duration="0.4s" data-wow-delay="0.4s"> 
+                <div class="hh1">
+                  <i class="fa fa-plus-square-o"></i>
+                </div>
+                <div class="hh2"> New Board</div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <script src="js/wow.js"></script>
+      <script>wow = new WOW({animateClass:'animated',offset:100,
+        callback:function(box){console.log("WOW: animating <" + box.tagName.toLowerCase() + ">")}});
+        wow.init();
+        document.getElementById('moar').onclick = function() {
+          var section = document.createElement('section');
+          section.className = 'section--purple wow fadeInDown';
+          this.parentNode.insertBefore(section, this);};
+      </script>
+      <script>
+        $(function() {
+          $(".preload").fadeOut(10, function() {
+            $(".content").fadeIn(10);        
+          });
+        });
+      </script>
+      <script>
+        $(window).resize(setDivVisibility);
+        function setDivVisibility(){
+          if (($(window).width()) < '520'){  
+            $('#topo2').css('height','100px');  
+          } else {  
+            $('#topo2').css('height','50px');  
+          } 
+        }
+      </script>
+      <script>
+        $(window).load(setDivVisibility);
+        function setDivVisibility(){
+          if (($(window).width()) < '520'){  
+            $('#topo2').css('height','100px');  
+          } else {  
+            $('#topo2').css('height','50px');  
+          } 
+        }
+      </script>
+      <script>
+        $(".lateral-perfil").mouseover(function() {
+          $('#box-2').css('width','185px');  
+        }).mouseout(function() {
+          $('#box-2').css('width','62px');  
+        });
+    </script>
+  </body>
+</html>

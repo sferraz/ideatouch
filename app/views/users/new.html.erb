@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="login.css">
+    <style>.wow:first-child {visibility: hidden;}</style>
+    <title>IdeaTouch</title>
+  </head>
+
+  <body>
+    <div id="lbg" class="wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.5s" >
+      <div id="lsearch-container">
+        <div id="lsearch-bg" class="wow fadeIn" data-wow-duration="1.5s" data-wow-delay="1.5s" >
+        </div>
+        <div id="lsearch">
+          <div id="clearance" class="sign-in">
+            <div class="box-wall">   
+              <div class="box-wall-text">
+                <br>
+                <img src="/assets/img/161.png" width="100" alt="logotipo" >
+                <h2><%= t '.title' %></h2>
+                <%= form_for @user do |form| %>
+                  <div class="hh4"><%= render partial: '/users/form', object: form %></div>
+                  <h2><small><%= button_to "Sign in", sign_in_path, method: :submit,:type =>type="button",:class=>'btn btn-success' %> </small></h2>
+                  <br><br>
+                  <div class="other-links">
+                    <div class= "hh4">
+                      <%= link_to t('.back'), sign_in_path , :class => "hvr-icon-back" %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+
+    <div class="cloud x2"></div> 
+  
+    <script src="js/wow.js"></script>
+    <script>wow = new WOW({animateClass:'animated',offset:100,
+      callback:function(box){console.log("WOW: animating <" + box.tagName.toLowerCase() + ">")}});
+      wow.init();
+      document.getElementById('moar').onclick = function() {
+        var section = document.createElement('section');
+        section.className = 'section--purple wow fadeInDown';
+        this.parentNode.insertBefore(section, this);};
+    </script>
+  </body>
+</html>

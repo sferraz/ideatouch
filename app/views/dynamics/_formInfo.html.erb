@@ -1,0 +1,50 @@
+<%= form_for(@dynamic) do |f| %>
+  <% if @dynamic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dynamic.errors.count, "error") %> prohibited this dynamic from being saved:</h2>
+
+      <ul>
+        <% @dynamic.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class= "letrasInfo">
+    Name - <%= @dynamic.name %><br>
+    Founder - <%= @participants.where(email:@dynamic.user.email,dynamic:@dynamic.id).last.name %> <br>
+    Status - 
+      <% if  (@dynamic.final.to_time - 1.hours) > Time.now %>
+        <%= distance_of_time_in_words(Time.now, (@dynamic.final.to_time - 1.hours) , include_seconds: true) %> to the end
+      <% else %> 
+        finished
+      <% end %>
+      <br>
+    Challenge - <%= @dynamic.descricao %>
+    <br><br><br>
+    Avatars of participants <br>
+    <div class= "linha"></div>
+    <% @participants.where(dynamic:@dynamic).each do |participant|%>
+      <% if (participant.name!=nil and participant.avatar_file_name!=nil)%>
+        <div class="user">
+          <br>
+          <%= image_tag participant.avatar.url(:thumb), :class=> "img-rounded" %>
+          <br>
+          <div class="userName"><%= participant.name %></div>
+          <br>
+        </div>
+      <% end %>
+    <% end %>
+    <br><br>
+    <div class= "linha"></div>
+  </div>
+  <br>
+  <br><br>
+  <div class= "hh3">
+    <%= link_to  "/dynamics/#{@dynamic.id}" , method: :get , :class => "hvr-icon-back" do %> 
+      Back to Dynamic
+    <% end %>
+  </div>
+  <br><br>
+<% end %>

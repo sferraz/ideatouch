@@ -1,0 +1,56 @@
+<%= form_for(@dynamic) do |f| %>
+  <% if @dynamic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dynamic.errors.count, "error") %> prohibited this dynamic from being saved:</h2>
+
+      <ul>
+        <% @dynamic.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :numerodenotas, value: 0 %>
+  <%= f.hidden_field :votation, value: false %>
+  <div class="field">
+    <br><br>
+    <div class="input-letter"><%= f.text_field :name ,:placeholder=>"Name",:style => 'text-align:center;background-image: url("");',:class=>'form-control' %></div>
+  </div>
+  <div class="field">
+    <br>
+    <div class="input-letter"><%= f.text_area :descricao,:placeholder=>"Challenge",:style => 'text-align:center;background-image: url("");',:class=>'form-control' %></div>
+  </div>
+  <div class="field">
+    <br>
+    <div class="input-letter"><%= f.number_field :votationnumber,:placeholder=>"Number of votes",:style => 'text-align:center;background-image: url("");',:class=>'form-control' %></div>
+  </div>
+  <br>
+    <div class="letrasInfo2">Define the time of the dynamic: </div>
+    <div class="input-letter-arial"><%= datetime_local_field(:dynamic, :final) %></div>
+  <br>
+  <div class="letrasInfo2">color: </div>
+  <div class="field">
+    <%= select(:dynamic,:color, [
+      ['Turquoise', "dynamicAzul"],
+      ['Orange', "dynamicLaranja"],
+      ['Red', "dynamicRed"],
+      ['Yellow', "dynamicAmarelo"],
+      ['Blue', "dynamicAzulClaro"],
+      ['Purple', "dynamicRoxo"],
+      ['Brown', "dynamicCastanho"],
+      ['Green', "dynamicVerde"],
+    ])%>
+  </div>
+  <br>
+  <div class="actions">
+    <%= button_to "Submit", dynamics_path, method: :submit,:type =>type="button",:class=>'btn btn-success' %> 
+  </div>
+  <br><br>
+  <div class= "hh3">
+    <%= link_to "/dynamics" , method: :get , :class => "hvr-icon-back" do %> 
+      Back to Dynamics
+    <% end %>
+  </div>
+  <br><br>
+<% end %>

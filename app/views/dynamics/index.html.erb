@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/animate.css">
+    <style>.wow:first-child {visibility: hidden;}</style>
+    <title>IDeaTouch</title>
+  </head>
+
+  <body>
+    <div class="preload"></div>
+    <div class="content">
+      <%= render 'formTopBar' %>
+      <br><br><br>
+      <div id="box-3" class="box">
+        <% @dynamics.each do |dynamic| %>
+          <% dynamic.participants.each do |participant| %>
+            <% if participant.email==current_user.email %>
+              <div class="hvr-float">
+                <div class = "hvr-curl-top-left2 wow rotateIn" data-wow-duration="0.5s" data-wow-delay="0.5s" >
+                  <%= link_to dynamic , method: :get  do %>
+                    <div class= <%= dynamic.color %>> 
+                      <h2>Dynamic</h2> 
+                      <% if current_user.id == dynamic.user_id %>
+                        <span class="glyphicon glyphicon-king" aria-hidden="true" ></span>
+                      <% end %>
+                      <div class="serif">
+                        <%= dynamic.name %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+        <%= link_to new_dynamic_path , method: :get  do %>
+          <div class="hvr-float">
+            <div class="dynamicMenu wow fadeInUp" data-wow-duration="0.6s" data-wow-delay="0.6s">
+              <div class="hh1">
+                <i class="fa fa-lightbulb-o"></i>
+              </div> 
+              <div class="hh2"> 
+                Create Dynamic
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+
+    <!-- circulos -->
+    <script src="js/wow.js"></script>
+    <script>wow = new WOW({animateClass:'animated',offset:100,
+      callback:function(box){console.log("WOW: animating <" + box.tagName.toLowerCase() + ">")}});
+      wow.init();
+      document.getElementById('moar').onclick = function() {
+        var section = document.createElement('section');
+        section.className = 'section--purple wow fadeInDown';
+        this.parentNode.insertBefore(section, this);};
+    </script>
+    <script>
+      $(function() {
+        $(".preload").fadeOut(10, function() {
+          $(".content").fadeIn(10);        
+        });
+      });
+    </script>
+  </body>
+</html>

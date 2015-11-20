@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="css/animate.css">
+    <style>.wow:first-child {visibility: hidden;}</style>
+    <title>IdeaTouch</title>
+  </head>
+
+  <body>
+    <div class="preload"></div>
+    <div class="content">
+      <%= render 'formTopBarD' %>
+      <div class="box-wall">
+        <h3>  <i class="fa fa-pie-chart"></i></h3>
+        <div class="serif">
+          <h1>Statistics</h1>
+          <%= render 'formStatistics' %>
+        </div>
+
+    <script src="js/wow.js"></script>
+    <script>wow = new WOW({animateClass:'animated',offset:100,
+      callback:function(box){console.log("WOW: animating <" + box.tagName.toLowerCase() + ">")}});
+      wow.init();
+      document.getElementById('moar').onclick = function() {
+        var section = document.createElement('section');
+        section.className = 'section--purple wow fadeInDown';
+        this.parentNode.insertBefore(section, this);};
+    </script>
+    <script>
+      $(function() {
+        $(".preload").fadeOut(10, function() {
+          $(".content").fadeIn(10);        
+        });
+      });
+    </script>
+  </body>
+</html>

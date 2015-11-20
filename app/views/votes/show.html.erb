@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Participant:</strong>
+  <%= @vote.participant %>
+</p>
+
+<p>
+  <strong>Dynamic:</strong>
+  <%= @vote.dynamic %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @vote.note %>
+</p>
+
+<%= link_to 'Edit', edit_vote_path(@vote) %> |
+<%= link_to 'Back', votes_path %>

@@ -1,0 +1,50 @@
+<div class="linha"></div>
+
+<%= form_tag update_multiple_notes_path, method: :put do %>            
+  <% if @board.name != "without board"%>
+    <% for note in @board.notes %>
+      <div class="hvr-float">
+      <div class = "hvr-curl-top-left wow bounceIn" data-wow-duration="0.5s" data-wow-delay="0.5s" >
+      <div class="<%= note.color %>">
+      <div class="textoo">
+      <%= check_box_tag "notes[]", note.id %>
+      <div class="hhp"><%= note.numerodanota%></div>
+      <hh4><%= note.text %></hh4> 
+      </div></div> 
+      </div></div>
+    <% end %>
+  <% end %>
+  <% if @board.name == "without board" %>
+    <% for note in Note.where(board_id:(Board.where(dynamic_id: @board.dynamic,name:'all notes').last.id)) %>
+      <div class="hvr-float">
+      <div class = "hvr-curl-top-left wow bounceIn" data-wow-duration="0.5s" data-wow-delay="0.5s" >
+      <div class="<%= note.color %>">
+      <div class="textoo">
+      <%= check_box_tag "notes[]", note.id %>
+      <div class="hhp"><%= note.numerodanota%></div>
+      <hh4><%= note.text %></hh4> 
+      </div></div> 
+      </div></div>
+    <% end %>
+  <% end %>
+  <div class="linha"></div>
+  <%= fields_for :note do |f| %>
+    <div class= "letrasInfo">
+      Choose the board
+      <div class="field">
+        <%= select(:note,:board_id, (Board.where.not(name:'all notes')& Board.where.not(name:'without board') & Board.where(dynamic_id:@board.dynamic_id)).map { |board| [board.name, board.id] })%>
+      </div>
+    </div>
+  <% end %>
+  <br>
+  <div class="actions">
+    <%= button_to "Submit", dynamics_path, method: :submit,:type =>type="button",:class=>'btn btn-success' %> 
+  </div>
+  <br><br>
+  <div class= "hh3">
+    <%= link_to "/boards/#{@board.id}" , method: :get , :class => "hvr-icon-back" do %> 
+      Back to Board
+    <% end %>
+  </div>
+  <br>
+<% end %>

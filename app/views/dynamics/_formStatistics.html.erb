@@ -1,0 +1,31 @@
+<%= form_for(@dynamic) do |f| %>
+  <% if @dynamic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dynamic.errors.count, "error") %> prohibited this dynamic from being saved:</h2>
+
+      <ul>
+        <% @dynamic.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <br><br><br>
+  <div class= "h3">
+    Total of notes: <%= @total_notes %>
+    <br><br>
+    Total of boards: <%= @total_boards %>
+    <br><br>
+    Total of participants: <%= @total_participants %>
+  </div>
+  <br><br><br>
+  <%= high_chart("my_id2", @char_note)  %>
+  <br>
+  <br><br>
+  <div class= "hh3">
+    <%= link_to  "/dynamics/#{@dynamic.id}" , method: :get , :class => "hvr-icon-back" do %> 
+      Back to Dynamic
+    <% end %>
+  </div>
+  <br><br>
+<% end %>
